@@ -1,4 +1,6 @@
 #! /bin/bash 
+#Update redis version as per your requirement
+REDIS_VERSION="5.0.7"
 
 #Data directory for redis 
 mkdir /data
@@ -57,11 +59,11 @@ mkdir -p /opt/redis
 
 chown -R ubuntu: /opt/redis
 
-wget -P /opt/redis https://download.redis.io/releases/redis-5.0.7.tar.gz
+wget -P /opt/redis https://download.redis.io/releases/redis-${REDIS_VERSION}.tar.gz
 
-tar -xvf /opt/redis/redis-5.0.7.tar.gz  -C /opt/redis/
+tar -xvf /opt/redis/redis-${REDIS_VERSION}.tar.gz  -C /opt/redis/
 
-cd /opt/redis/redis-5.0.7/
+cd /opt/redis/redis-${REDIS_VERSION}/
 
 apt install -y build-essential tcl
 
@@ -76,10 +78,10 @@ make install
 mkdir -p /data/redis &&  touch /data/redis/appendonly.aof && chown -R redis:redis /data/redis &&  chmod -R 770 /data/redis &&  mkdir -p /etc/redis &&  mkdir -p /var/log/redis/ &&  touch /var/log/redis/redis-server.log &&  chown redis.redis /var/log/redis/redis-server.log &&  mkdir -p /var/run/redis/ &&  chown redis.redis /var/run/redis/
 
 #Download redis systemd file 
-wget -O /etc/systemd/system/redis.service https://github.com/sakharepadmakar/redis/blob/master/redis.service
+wget -O /etc/systemd/system/redis.service https://github.com/sakharepadmakar/redis/blob/master/redis.service?raw=true
 
 #Download redis conf file
-wget -O /etc/redis/redis.conf https://github.com/sakharepadmakar/redis/blob/master/redis.conf
+wget -O /etc/redis/redis.conf https://github.com/sakharepadmakar/redis/blob/master/redis.conf?raw=true
 
 #Auto start redis service on reboot
 systemctl enable redis.service
