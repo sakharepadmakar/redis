@@ -1,0 +1,17 @@
+#Create a file in the "/etc/logrotate.d/" directory
+cat <<-RotateEOF >> /etc/logrotate.d/redis
+/var/log/redis/redis-server.log {
+	daily
+    missingok
+	copytruncate
+    rotate 30
+    notifempty
+    compress
+}
+RotateEOF
+
+# To displays the current Logrotate configuration
+sudo logrotate -d /etc/logrotate.d/redis
+
+#To test Logrotate
+sudo logrotate -f /etc/logrotate.d/redis
